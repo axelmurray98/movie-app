@@ -1,0 +1,113 @@
+/* Dark mode variables and overrides */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --muted-text: #6c757d;
+  --card-bg: #ffffff;
+  --border-color: #dee2e6;
+  --link-color: #0d6efd;
+}
+
+html[data-bs-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #e5e7eb;
+  --muted-text: #9ca3af;
+  --card-bg: #1f2937;
+  --border-color: #374151;
+  --link-color: #60a5fa;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --text-color: #e5e7eb;
+  --muted-text: #9ca3af;
+  --card-bg: #1f2937;
+  --border-color: #374151;
+  --link-color: #60a5fa;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Apply variables */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.navbar, .footer, .card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+a, .nav-link {
+  color: var(--link-color) !important;
+}
+
+.text-muted {
+  color: var(--muted-text) !important;
+}
+
+.table {
+  color: var(--text-color);
+}
+
+/* Ensure DataTables elements adapt */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: var(--text-color) !important;
+}
+
+/* Toggle button styling */
+#themeToggle {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1.1rem;
+  padding: .25rem .5rem;
+}
+#themeToggle:focus { outline: none; }
+
+/* Header anchor color override (solo en modo oscuro) */
+html[data-bs-theme="dark"] .navbar .nav-link,
+html[data-bs-theme="dark"] .navbar .navbar-brand,
+body.dark .navbar .nav-link,
+body.dark .navbar .navbar-brand {
+  color: #fff !important;
+}
+
+html[data-bs-theme="dark"] .navbar .nav-link:hover,
+html[data-bs-theme="dark"] .navbar .navbar-brand:hover,
+body.dark .navbar .nav-link:hover,
+body.dark .navbar .navbar-brand:hover {
+  color: #ffffffcc !important;
+}
+
+/* Botones e iconos del header en modo oscuro */
+html[data-bs-theme="dark"] .navbar .btn,
+body.dark .navbar .btn {
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+
+html[data-bs-theme="dark"] .navbar .btn-link,
+body.dark .navbar .btn-link {
+  color: #fff !important;
+}
+
+/* Iconos SVG / <i> dentro del navbar */
+html[data-bs-theme="dark"] .navbar svg,
+html[data-bs-theme="dark"] .navbar i,
+body.dark .navbar svg,
+body.dark .navbar i {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+/* Toggler icon: invertir para buena visibilidad en oscuro */
+html[data-bs-theme="dark"] .navbar-toggler,
+body.dark .navbar-toggler {
+  border-color: rgba(255,255,255,0.12);
+}
+html[data-bs-theme="dark"] .navbar-toggler-icon,
+body.dark .navbar-toggler-icon {
+  filter: invert(1) brightness(2) !important;
+}

@@ -1,0 +1,93 @@
+@model IEnumerable<App_movie_mvc.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" />
+
+<table id="peliculasTable" class="table table-striped display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Imagen
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plataforma)
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>   
+                    <td>
+                        <img src="@item.PosteUrlPortada" height="50px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genero.Descipcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Plataforma.Nombre)
+                    </td>
+            
+           
+          
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" style="color:white "asp-route-id="@item.Id" class="btn btn-primary ">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- DataTables cargado globalmente desde _Layout.cshtml -->
+
+@section Scripts {
+    <script>
+        (function () {
+            var init = function () {
+                var $tbl = $('#peliculasTable');
+                if ($tbl.length && !$.fn.dataTable.isDataTable('#peliculasTable')) {
+                    $tbl.DataTable({
+                        responsive: true,
+                        language: {
+                            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                        },
+                        columnDefs: [
+                            { orderable: false, targets: 0 }, // imagen no ordenable
+                            { orderable: false, targets: -1 } // acciones no ordenable
+                        ],
+                        pageLength: 5,
+                        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                        order: [[1, 'asc']] // Ordenar por Título por defecto
+                    });
+                }
+            };
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+}
