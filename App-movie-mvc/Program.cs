@@ -25,8 +25,8 @@ public partial class Program
             options.Password.RequiredLength = 3;
             options.Password.RequireUppercase = false;
         })
+         .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<MovieDbContext>()
-        .AddRoles<IdentityRole>()
         .AddSignInManager();
        
         builder.Services.AddAuthentication(opt =>
