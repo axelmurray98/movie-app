@@ -20,17 +20,22 @@ public partial class Program
         // Registrar Identity antes de Build
         builder.Services.AddIdentityCore<Usuario>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = true;
+            // No exigir confirmación de cuenta para permitir login inmediato durante desarrollo
+            options.SignIn.RequireConfirmedAccount = false;
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequiredLength = 3;
             options.Password.RequireUppercase = false;
-        })
-         .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<MovieDbContext>()
-        .AddSignInManager();
-       
+        }
+ )
+     .AddRoles<IdentityRole>()
+     .AddEntityFrameworkStores<MovieDbContext>()
+     .AddSignInManager();
+
         builder.Services.AddAuthentication(opt =>
         {
+            // Asegurar que la aplicación valide la cookie de Identity como esquema por defecto
+            opt.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+            opt.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
             opt.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
         })
             .AddIdentityCookies();

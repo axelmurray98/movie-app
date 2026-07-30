@@ -8,10 +8,11 @@ namespace App_movie_mvc.Models
 {
     public class Usuario : IdentityUser
     {
-        [Required]
+        [Required (ErrorMessage = "Ingresa Un Nombre")]
         [StringLength(100)]
+
         public string Nombre { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingresa Un Nombre")]
         [StringLength(100)]
         public string Apellido { get; set; }
         [DataType(DataType.Date)]
@@ -22,7 +23,7 @@ namespace App_movie_mvc.Models
         public List<Review> UsuarioReviews { get; set; }
 
     }
-    public class UsuarioViewModel
+    public class RegistroViewModel
     {
         [Required]
         [StringLength(100)]
@@ -30,12 +31,35 @@ namespace App_movie_mvc.Models
         [Required]
         [StringLength(100)]
         public string Apellido { get; set; }
-        [EmailAddress]
+       
+        [EmailAddress(ErrorMessage = "Ingresa un Email Valido")]
+        [Required(ErrorMessage = "Ingresa un correo valido")]
         public string Email { get; set; }
-        [PasswordPropertyText]
+        [Required(ErrorMessage = "Ingresa una contraseña valida")]
+        [DataType(DataType.Password)]
         public string Clave { get; set; }
-        [PasswordPropertyText]
+        [Required(ErrorMessage = "Debes Confirmar la Clave")]
+        [Compare("Clave",ErrorMessage = "Las CLaves no coinciden")]
+        [DataType(DataType.Password)]
         public string ConfirmarClave { get; set; }
         
+    }
+    public class LoginViewModel
+    {
+        [EmailAddress(ErrorMessage = "Ingresa un Email Valido")]
+        [Required(ErrorMessage = "Ingresa un correo valido")]
+        public string Email {get; set;}
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage ="Ingresa una contraseña valida")]
+        public string Password {get; set;}
+        public bool Recordame { get; set;}
+    }
+    public class MiPerfilViewModel
+    {
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string? Email { get; set; }
+        public IFormFile? ImagenPerfil { get; set; }
+        public string? ImagenUrlPerfil { get; set; }
     }
 }
